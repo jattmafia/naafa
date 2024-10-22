@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:naafa/features/auth/screens/login.dart';
 import 'package:naafa/gen/assets.gen.dart';
 import 'package:naafa/utils/extension.dart';
 import 'package:naafa/widgets/custom_textfield.dart';
@@ -60,6 +61,24 @@ class SignUpScreen extends StatelessWidget {
                   width: double.infinity,
                   child: FilledButton(
                       onPressed: () {}, child: const Text("Sign Up"))),
+
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3204010288.
+                     
+               
+                Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already have an account ?"),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()));
+                      },
+                      child: const Text("Sign In"))
+                ],
+              )
             ],
           ),
         ),
