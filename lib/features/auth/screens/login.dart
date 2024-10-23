@@ -31,7 +31,7 @@ class LoginScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(Assets.images.login),
+                  Center(child: SvgPicture.asset(Assets.images.login)),
                   Text(
                     "Login",
                     style: context.style.headlineLarge,
@@ -99,7 +99,8 @@ class LoginScreen extends HookConsumerWidget {
                                   if (formKey.value.currentState!.validate()) {
                                     try {
                                       await notifier.login();
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
                                           content: Text("Login successfull"),
                                         ),
@@ -129,7 +130,8 @@ class LoginScreen extends HookConsumerWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SignUpScreen()));
+                                    builder: (context) =>
+                                        const SignUpScreen()));
                           },
                           child: const Text("Sign Up"))
                     ],

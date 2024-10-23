@@ -14,8 +14,8 @@ class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-     final formKey = useRef(GlobalKey<FormState>());
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = useRef(GlobalKey<FormState>());
     final state = ref.watch(authNotifierProvider);
     final notifier = ref.read(authNotifierProvider.notifier);
     return Scaffold(
@@ -30,7 +30,11 @@ class SignUpScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(Assets.images.signup),
+                  Center(
+                      child: SvgPicture.asset(
+                    Assets.images.signup,
+                    alignment: Alignment.center,
+                  )),
                   const SizedBox(height: 10),
                   Text(
                     "SignUp",
@@ -55,7 +59,7 @@ class SignUpScreen extends HookConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                   CustomTextfield(
+                  CustomTextfield(
                     obscureText: true,
                     initialValue: state.authModel.password,
                     onChanged: (p0) {
@@ -72,7 +76,7 @@ class SignUpScreen extends HookConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                   CustomTextfield(
+                  CustomTextfield(
                     hintText: 'Email',
                     initialValue: state.authModel.email,
                     onChanged: (p0) {
@@ -81,18 +85,18 @@ class SignUpScreen extends HookConsumerWidget {
                     validator: (p0) {
                       if (p0!.isEmpty) {
                         return "Email is required";
-                      } else if(p0.isNotEmpty &&  !EmailValidator.validate(p0)){
+                      } else if (p0.isNotEmpty &&
+                          !EmailValidator.validate(p0)) {
                         return "Invalid Email";
                       }
                       return null;
-                    
                     },
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                   CustomTextfield(
-                    initialValue: state.authModel.phone ,
+                  CustomTextfield(
+                    initialValue: state.authModel.phone,
                     keyboardType: TextInputType.phone,
                     hintText: 'Phone',
                     onChanged: (p0) {
@@ -108,8 +112,8 @@ class SignUpScreen extends HookConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                   CustomTextfield(
-                  initialValue: state.authModel.address,
+                  CustomTextfield(
+                    initialValue: state.authModel.address,
                     onChanged: (p0) {
                       notifier.addressChange(p0);
                     },
@@ -127,42 +131,41 @@ class SignUpScreen extends HookConsumerWidget {
                   SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                          onPressed: state.loading ? null : () async {
-                            if (formKey.value.currentState!.validate()) {
-                             try{
-                            await  notifier.signup();
-                             ScaffoldMessenger.of(context).showSnackBar(
+                          onPressed: state.loading
+                              ? null
+                              : () async {
+                                  if (formKey.value.currentState!.validate()) {
+                                    try {
+                                      await notifier.signup();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
                                           content: Text("Signup successfull"),
                                         ),
+                                      );
 
-                              
-                             );
+                                      notifier.clearFields();
 
-                             notifier.clearFields();
-                             
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
-                             }catch(e){
-                              if(context.mounted){
-                                context.error(e);
-                              }
-                              
-
-                             }
-                            }
-                          }, child: state.loading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : const Text("Sign Up"))),
-                         
-                   
-                    Row(
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen()));
+                                    } catch (e) {
+                                      if (context.mounted) {
+                                        context.error(e);
+                                      }
+                                    }
+                                  }
+                                },
+                          child: state.loading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(),
+                                )
+                              : const Text("Sign Up"))),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Already have an account ?"),
