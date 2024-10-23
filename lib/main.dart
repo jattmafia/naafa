@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:naafa/features/auth/screens/login.dart';
 import 'package:naafa/utils/constants.dart';
-import 'package:naafa/widgets/custom_textfield.dart';
 
 void main() {
-  runApp(const MyApp());
+   final ref = ProviderContainer();
+  runApp( UncontrolledProviderScope(
+      container: ref,
+      child: const MyApp(),
+    ),);
 }
 
 class MyApp extends StatelessWidget {

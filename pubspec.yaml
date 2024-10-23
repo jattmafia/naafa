@@ -44,6 +44,7 @@ dependencies:
   hooks_riverpod: ^2.6.1
   retrofit: ^4.4.1
   riverpod_annotation: ^2.6.1
+  pretty_dio_logger: ^1.4.0
   
 
 dev_dependencies:

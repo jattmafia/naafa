@@ -16,7 +16,7 @@ final authRepositoryProvider =
   factory AuthRepository(Dio dio) = _AuthRepository;
   
   @POST('login')
-  Future login( @Field() String username,
+  Future login( @Field() String userName,
     @Field() String password,);
 
   

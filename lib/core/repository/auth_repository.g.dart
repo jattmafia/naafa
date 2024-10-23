@@ -23,14 +23,14 @@ class _AuthRepository implements AuthRepository {
 
   @override
   Future<dynamic> login(
-    String username,
+    String userName,
     String password,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = {
-      'username': username,
+      'userName': userName,
       'password': password,
     };
     final _options = _setStreamType<dynamic>(Options(
