@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final base = ThemeData.light().textTheme;
     final colorScheme =
-        ColorScheme.fromSeed(seedColor: Color(0xff007aff)).copyWith(
-      primary: Color(0xff007aff),
+        ColorScheme.fromSeed(seedColor: Color(0xff2C3E50)).copyWith(
+      primary: Color(0xff2C3E50),
     );
 
     final style = base.copyWith(
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           ),
           padding: WidgetStateProperty.all(const EdgeInsets.all(14)),
         )),
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 225, 229),
         colorScheme: colorScheme,
         textTheme: style,
         useMaterial3: true,

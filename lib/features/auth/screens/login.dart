@@ -19,6 +19,23 @@ class LoginScreen extends HookConsumerWidget {
     final obsecure = useState(true);
     final state = ref.watch(authNotifierProvider);
     final notifier = ref.read(authNotifierProvider.notifier);
+     final controller = useAnimationController(
+      duration: const Duration(seconds: 5),
+    );
+
+    useEffect(() {
+      controller.repeat(reverse: true); 
+      return controller.dispose; 
+    }, [controller]);
+    
+
+    final animation = useMemoized(() => Tween<Offset>(
+    begin:const Offset(-0,0),
+    end: const Offset(1.3, 0),
+  ).animate(CurvedAnimation(
+    parent: controller,
+    curve: Curves.linear,
+  )));
     return Scaffold(
       body: AbsorbPointer(
         absorbing: state.loading,
@@ -31,7 +48,11 @@ class LoginScreen extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: SvgPicture.asset(Assets.images.login)),
+                  SlideTransition(
+                    position: animation,
+                    child: SvgPicture.asset(Assets.images.login)),
+
+                    const SizedBox(height: 20,),
                   Text(
                     "Login",
                     style: context.style.headlineLarge,

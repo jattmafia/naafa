@@ -32,14 +32,15 @@ class CustomTextfield extends StatelessWidget {
       obscureText: obscureText!,
       decoration: InputDecoration(
         suffixIcon:suffixIcon,
-        filled: true,
+        filled: false,
         
-        fillColor: Color(0xffE5E5E5),
+      //  fillColor: Color(0xffE5E5E5),
         
         hintText: hintText,
         border: OutlineInputBorder(
+          
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+          borderSide:const BorderSide( ),
         ),
       ),
       onChanged: onChanged,
