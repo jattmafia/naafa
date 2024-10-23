@@ -1,4 +1,4 @@
 class ApiConfig {
-  static String baseUrl = "https://nafaa-backend.onrender.com/";
+  static String baseUrl = "https://nafaa-backend.onrender.com/api/user/";
 
 }

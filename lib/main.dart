@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         filledButtonTheme: FilledButtonThemeData(
             style: ButtonStyle(
+             // maximumSize: WidgetStateProperty.all(Size.fromHeight(40)),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
