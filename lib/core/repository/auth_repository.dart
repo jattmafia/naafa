@@ -18,6 +18,16 @@ final authRepositoryProvider =
   @POST('login')
   Future login( @Field() String userName,
     @Field() String password,);
-
   
-  }
+  @POST('signup')
+  Future signup( @Field() String userName,
+    @Field() String password,
+    @Field() String email,
+    @Field() String phone,
+    @Field() String address,);
+
+
+
+}
+  
+  

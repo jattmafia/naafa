@@ -20,118 +20,124 @@ class LoginScreen extends HookConsumerWidget {
     final state = ref.watch(authNotifierProvider);
     final notifier = ref.read(authNotifierProvider.notifier);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey.value,
-          child: SafeArea(
-              child: Padding(
-            padding: context.kdefaultPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(Assets.images.login),
-                Text(
-                  "Login",
-                  style: context.style.headlineLarge,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                CustomTextfield(
-                  initialValue: state.authModel.username,
-                  hintText: 'Username',
-                  onChanged: (value) {
-                    notifier.usernameChange(value);
-                  },
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return "Username is required";
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextfield(
-                  hintText: 'Password',
-                  obscureText: obsecure.value,
-                  initialValue: state.authModel.password,
-                  onChanged: (value) {
-                    notifier.passwordChange(value);
-                  },
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      obsecure.value = !obsecure.value;
-                    },
-                    icon: obsecure.value
-                        ? const Icon(Icons.visibility)
-                        : const Icon(Icons.visibility_off),
+      body: AbsorbPointer(
+        absorbing: state.loading,
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey.value,
+            child: SafeArea(
+                child: Padding(
+              padding: context.kdefaultPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(Assets.images.login),
+                  Text(
+                    "Login",
+                    style: context.style.headlineLarge,
                   ),
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return "Password is required";
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Forgot password ?',
-                      style: context.style.labelLarge!
-                          .copyWith(color: context.theme.primaryColor),
-                    )),
-                const SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                        onPressed: state.loading
-                            ? null
-                            : () async {
-                                if (formKey.value.currentState!.validate()) {
-                                  try {
-                                    await notifier.login();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text("Login successful"),
-                                      ),
-                                    );
-                                  } catch (e) {
-                                    log(e.toString());
-                                    if (context.mounted) {
-                                      context.error(e);
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  CustomTextfield(
+                    initialValue: state.authModel.username,
+                    hintText: 'Username',
+                    onChanged: (value) {
+                      notifier.usernameChange(value);
+                    },
+                    validator: (p0) {
+                      if (p0!.isEmpty) {
+                        return "Username is required";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextfield(
+                    hintText: 'Password',
+                    obscureText: obsecure.value,
+                    initialValue: state.authModel.password,
+                    onChanged: (value) {
+                      notifier.passwordChange(value);
+                    },
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        obsecure.value = !obsecure.value;
+                      },
+                      icon: obsecure.value
+                          ? const Icon(Icons.visibility)
+                          : const Icon(Icons.visibility_off),
+                    ),
+                    validator: (p0) {
+                      if (p0!.isEmpty) {
+                        return "Password is required";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Forgot password ?',
+                        style: context.style.labelLarge!
+                            .copyWith(color: context.theme.primaryColor),
+                      )),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  SizedBox(
+                      width: double.infinity,
+                      child: FilledButton(
+                          onPressed: state.loading
+                              ? null
+                              : () async {
+                                  if (formKey.value.currentState!.validate()) {
+                                    try {
+                                      await notifier.login();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Login successfull"),
+                                        ),
+                                      );
+                                    } catch (e) {
+                                      log(e.toString());
+                                      if (context.mounted) {
+                                        context.error(e);
+                                      }
                                     }
                                   }
-                                }
-                              },
-                        child: state.loading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(),
-                              )
-                            : const Text("Sign In"))),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Don't have an account ?"),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUpScreen()));
-                        },
-                        child: const Text("Sign Up"))
-                  ],
-                )
-              ],
-            ),
-          )),
+                                },
+                          child: state.loading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(),
+                                )
+                              : const Text("Sign In"))),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account ?"),
+                      TextButton(
+                          onPressed: () {
+                            notifier.clearFields();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpScreen()));
+                          },
+                          child: const Text("Sign Up"))
+                    ],
+                  )
+                ],
+              ),
+            )),
+          ),
         ),
       ),
     );

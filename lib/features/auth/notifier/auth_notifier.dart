@@ -50,4 +50,24 @@ class AuthNotifier extends _$AuthNotifier {
       return Future.error(e.response?.data['error']);
     }
   }
+   
+   clearFields(){
+    state = state.copyWith(authModel: AuthModel(
+            address: '', password: '', phone: '', email: '', username: ''));
+   }
+
+   signup() async{
+    try{
+     state = state.copyWith(loading: true);
+      await _repository.signup(
+          state.authModel.username, state.authModel.password,state.authModel.email,state.authModel.phone,state.authModel.address);
+
+          state = state.copyWith(loading: false);
+    } on DioException catch (e) {
+      state = state.copyWith(loading: false);
+      return Future.error(e.response?.data['error']);
+    }
+   }
+
+
 }
